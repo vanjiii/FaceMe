@@ -1,0 +1,14 @@
+<resources>
+    <!-- Common-->
+    <string name="app_name">Face Me</string>
+    <string name="progress_bar_message">Loading...</string>
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">Cancel</string>
+
+    <!-- Splash screen-->
+    <string name="splash_screen_logo_description">TU-Varna logo</string>
+
+    <!-- main screen -->
+    <string name="main_screen_take_photo_button_text">Take photo</string>
+    <string name="main_screen_preview_taken_photos_button_text">Preview photos</string>
+</resources>
