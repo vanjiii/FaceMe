@@ -8,14 +8,8 @@ import android.widget.Toast;
 
 import com.vanjiii.faceme.R;
 import com.vanjiii.faceme.applications.BaseApplication;
-import com.vanjiii.faceme.managers.DialogManager;
-
-import javax.inject.Inject;
 
 public class MainScreenActivity extends AppCompatActivity {
-
-    @Inject
-    DialogManager dialogManager;
 
     private Button takePhotoButton;
     private Button previewAllPhotosButton;
@@ -45,16 +39,13 @@ public class MainScreenActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Toast.makeText(MainScreenActivity.this, "Take photo", Toast.LENGTH_LONG).show();
-
-            dialogManager.showTwoButtonsDialog(MainScreenActivity.this, R.string
-                    .main_screen_preview_taken_photos_button_text, R.string.ok_button, R.string.cancel_button, null);
         }
     };
 
     private View.OnClickListener previewPhotosListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(MainScreenActivity.this, "preview all photos", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainScreenActivity.this, "Preview all photos", Toast.LENGTH_LONG).show();
         }
     };
 }
