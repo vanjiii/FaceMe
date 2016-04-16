@@ -12,14 +12,20 @@ import android.util.Log;
  */
 public class DatabaseHelper extends SQLiteOpenHelper{
 
-    private String TABLE_PICTURES = "pictures";
-    private String LOG_TAG = "Database";
+    public static String LOG_TAG = "Database";
+    public static String TABLE_PICTURES = "pictures";
+    private static String DATABASE_NAME = "pictures.db";
+    private static int DATABASE_VERSION = 1;
 
-    private String COLUMN_ID = "id";
-    private String COLUMN_PICTURE_URI = "picture_uri";
-    private String COLUMN_PERSON_NAME = "person_name";
-    private String COLUMN_PERSON_AGE = "person_age";
-    private String COLUMN_PERSON_SEX = "person_sex";
+    public static String COLUMN_ID = "id";
+    public static String COLUMN_PICTURE_URI = "picture_uri";
+    public static String COLUMN_PERSON_NAME = "person_name";
+    public static String COLUMN_PERSON_AGE = "person_age";
+    public static String COLUMN_PERSON_SEX = "person_sex";
+
+    public DatabaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

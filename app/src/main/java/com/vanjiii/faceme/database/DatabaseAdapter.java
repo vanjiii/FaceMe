@@ -17,7 +17,7 @@ public interface DatabaseAdapter {
      * @param person The person bean to store.
      * @return Boolean if the process was successful.
      */
-    boolean storePerson(Person person );
+    void storePerson(Person person );
 
     /**
      * Load person by its index in the database.
