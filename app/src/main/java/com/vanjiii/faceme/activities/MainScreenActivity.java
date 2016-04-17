@@ -1,5 +1,6 @@
 package com.vanjiii.faceme.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,6 +9,9 @@ import android.widget.Toast;
 
 import com.vanjiii.faceme.R;
 import com.vanjiii.faceme.applications.BaseApplication;
+import com.vanjiii.faceme.beans.Person;
+import com.vanjiii.faceme.constants.GenderEnum;
+import com.vanjiii.faceme.database.DatabaseAdapterImpl;
 
 public class MainScreenActivity extends AppCompatActivity {
 
@@ -38,14 +42,23 @@ public class MainScreenActivity extends AppCompatActivity {
     private View.OnClickListener takePhotoListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(MainScreenActivity.this, "Take photo", Toast.LENGTH_LONG).show();
+            Person person  = new Person();
+            person.setPictureUri("uri");
+            person.setName("name: " + Long.toHexString(Double.doubleToLongBits(Math.random())));
+            person.setSex(GenderEnum.FEMALE);
+            person.setAge(2);
+
+            DatabaseAdapterImpl db = new DatabaseAdapterImpl(MainScreenActivity.this);
+            db.storePerson(person);
+            Toast.makeText(MainScreenActivity.this, "Person saved!", Toast.LENGTH_LONG).show();
         }
     };
 
     private View.OnClickListener previewPhotosListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(MainScreenActivity.this, "Preview all photos", Toast.LENGTH_LONG).show();
+            Intent i = new Intent(MainScreenActivity.this, AndroidDatabaseManager.class);
+            MainScreenActivity.this.startActivity(i);
         }
     };
 }
