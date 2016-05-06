@@ -64,7 +64,6 @@ public class DatabaseAdapterImpl implements DatabaseAdapter{
         values.put(DatabaseHelper.COLUMN_PERSON_AGE, person.getAge());
         values.put(DatabaseHelper.COLUMN_PERSON_SEX, person.getSex().getValue());
 
-        //TODO: Ivestigate if it can replace 'insert' with 'update'.
         if (loadPerson(database, person.getId()) != null) {
             String [] whereArgs = { String.valueOf(person.getId()) };
             database.update(DatabaseHelper.TABLE_PICTURES, values, PERSON_WHERE, whereArgs);

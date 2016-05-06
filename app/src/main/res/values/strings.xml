@@ -11,4 +11,5 @@
     <!-- main screen -->
     <string name="main_screen_take_photo_button_text">Take photo</string>
     <string name="main_screen_preview_taken_photos_button_text">Preview photos</string>
+    <string name="main_string_db_viewer_button_text">DB Viewer</string>
 </resources>

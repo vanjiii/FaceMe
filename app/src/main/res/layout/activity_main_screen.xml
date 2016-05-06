@@ -21,4 +21,10 @@
         android:layout_marginBottom="@dimen/main_screen_buttons_margin_bottom"
         android:text="@string/main_screen_preview_taken_photos_button_text"/>
 
+    <Button
+        android:id="@+id/db_viewer_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/main_string_db_viewer_button_text"/>
+
 </LinearLayout>

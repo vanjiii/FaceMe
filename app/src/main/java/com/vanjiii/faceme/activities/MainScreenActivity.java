@@ -17,6 +17,7 @@ public class MainScreenActivity extends AppCompatActivity {
 
     private Button takePhotoButton;
     private Button previewAllPhotosButton;
+    private Button dbViewerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +33,13 @@ public class MainScreenActivity extends AppCompatActivity {
     private void initLayoutElements() {
         takePhotoButton = (Button) findViewById(R.id.take_photo_button);
         previewAllPhotosButton = (Button) findViewById(R.id.preview_taken_photos_button);
+        dbViewerButton = (Button) findViewById(R.id.db_viewer_button);
     }
 
     private void setOnClickListeners() {
         takePhotoButton.setOnClickListener(takePhotoListener);
         previewAllPhotosButton.setOnClickListener(previewPhotosListener);
+        dbViewerButton.setOnClickListener(dbViewerListener);
     }
 
     private View.OnClickListener takePhotoListener = new View.OnClickListener() {
@@ -50,11 +53,23 @@ public class MainScreenActivity extends AppCompatActivity {
 
             DatabaseAdapterImpl db = new DatabaseAdapterImpl(MainScreenActivity.this);
             db.storePerson(person);
+            person.setPictureUri("url");
+            person.setName("name: " + Long.toHexString(Double.doubleToLongBits(Math.random())));
+            person.setSex(GenderEnum.MALE);
+            person.setAge(19);
+            db.storePerson(person);
             Toast.makeText(MainScreenActivity.this, "Person saved!", Toast.LENGTH_LONG).show();
         }
     };
 
     private View.OnClickListener previewPhotosListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(MainScreenActivity.this, "Boo hoo...", Toast.LENGTH_LONG).show();
+        }
+    };
+
+    private View.OnClickListener dbViewerListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent i = new Intent(MainScreenActivity.this, AndroidDatabaseManager.class);
