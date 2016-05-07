@@ -58,12 +58,14 @@ public class DatabaseAdapterImpl implements DatabaseAdapter{
 //        Log.v(DatabaseHelper.LOG_TAG, "Storing face in the database: "
 //                + new JsonParser(context).serializeFace(person));
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.COLUMN_ID, person.getId());
+        //TODO:  remove input id as input var
+//        values.put(DatabaseHelper.COLUMN_ID, person.getId());
         values.put(DatabaseHelper.COLUMN_PICTURE_URI, person.getPictureUri());
         values.put(DatabaseHelper.COLUMN_PERSON_NAME, person.getName());
         values.put(DatabaseHelper.COLUMN_PERSON_AGE, person.getAge());
         values.put(DatabaseHelper.COLUMN_PERSON_SEX, person.getSex().getValue());
 
+        //TODO: add working criteria to look for existing record
         if (loadPerson(database, person.getId()) != null) {
             String [] whereArgs = { String.valueOf(person.getId()) };
             database.update(DatabaseHelper.TABLE_PICTURES, values, PERSON_WHERE, whereArgs);
@@ -73,6 +75,7 @@ public class DatabaseAdapterImpl implements DatabaseAdapter{
     }
 
     private Person loadPerson(SQLiteDatabase database, int index) {
+        //TODO: add 
         Log.v(DatabaseHelper.LOG_TAG, "Loading face with index " + index + " from the DB.");
         String [] whereArgs = { String.valueOf(index) };
         List<Person> persons;
