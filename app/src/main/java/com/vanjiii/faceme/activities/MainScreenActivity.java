@@ -1,6 +1,7 @@
 package com.vanjiii.faceme.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,15 +10,14 @@ import android.widget.Toast;
 
 import com.vanjiii.faceme.R;
 import com.vanjiii.faceme.applications.BaseApplication;
-import com.vanjiii.faceme.beans.Person;
-import com.vanjiii.faceme.constants.GenderEnum;
-import com.vanjiii.faceme.database.DatabaseAdapterImpl;
+import com.vanjiii.faceme.managers.CameraManager;
 
 public class MainScreenActivity extends AppCompatActivity {
 
     private Button takePhotoButton;
     private Button previewAllPhotosButton;
     private Button dbViewerButton;
+    private Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,30 @@ public class MainScreenActivity extends AppCompatActivity {
 
         initLayoutElements();
         setOnClickListeners();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CameraManager.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                // Image captured and saved to fileUri specified in the Intent
+//                Toast.makeText(this, "Image saved to:\n" +
+//                        data.getData(), Toast.LENGTH_LONG).show();
+
+                //TODO: Why data is null??
+                //TODO: fix msg
+                //TODO Add logging.
+
+                //TODO: Add fragment to show current current picture.
+
+            } else if (resultCode == RESULT_CANCELED) {
+                // User cancelled the image capture
+                //TODO: add msg and flow
+            } else {
+                // Image capture failed, advise user
+                //TODO: add msg and flow
+            }
+        }
     }
 
     private void initLayoutElements() {
@@ -45,20 +69,8 @@ public class MainScreenActivity extends AppCompatActivity {
     private View.OnClickListener takePhotoListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Person person  = new Person();
-            person.setPictureUri("uri");
-            person.setName("name: " + Long.toHexString(Double.doubleToLongBits(Math.random())));
-            person.setSex(GenderEnum.FEMALE);
-            person.setAge(2);
-
-            DatabaseAdapterImpl db = new DatabaseAdapterImpl(MainScreenActivity.this);
-            db.storePerson(person);
-            person.setPictureUri("url");
-            person.setName("name: " + Long.toHexString(Double.doubleToLongBits(Math.random())));
-            person.setSex(GenderEnum.MALE);
-            person.setAge(19);
-            db.storePerson(person);
-            Toast.makeText(MainScreenActivity.this, "Person saved!", Toast.LENGTH_LONG).show();
+            //TODO: Why can't I pass 'uri' as argument to "CameraManager.startCamera()' ??
+            uri = CameraManager.startCamera(MainScreenActivity.this);
         }
     };
 
