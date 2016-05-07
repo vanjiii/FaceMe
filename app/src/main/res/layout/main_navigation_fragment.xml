@@ -1,38 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.vanjiii.faceme.activities.MainScreenActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <!-- android:gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/take_photo_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/main_screen_buttons_margin_bottom"
-        android:text="@string/main_screen_take_photo_button_text"/>
+        android:text="@string/main_screen_take_photo_button_text" />
 
     <Button
         android:id="@+id/preview_taken_photos_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/main_screen_buttons_margin_bottom"
-        android:text="@string/main_screen_preview_taken_photos_button_text"/>
+        android:text="@string/main_screen_preview_taken_photos_button_text" />
 
     <Button
         android:id="@+id/db_viewer_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/main_string_db_viewer_button_text"/>
+        android:text="@string/main_string_db_viewer_button_text" />
 
-        -->
-
-    <FrameLayout
-        android:id="@+id/main_screen_placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </FrameLayout>
 
 </LinearLayout>
