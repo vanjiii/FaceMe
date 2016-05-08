@@ -4,6 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!-- TODO extract variables -->
+
+    <TextView
+        android:id="@+id/hint_label_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Tab on the image to generate portrait image." />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,6 +34,7 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/person_name_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -36,6 +46,7 @@
         android:layout_gravity="center">
 
         <EditText
+            android:id="@+id/person_age_edit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -57,31 +68,29 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Is Beautiful"/>
+            android:layout_gravity="center"
+            android:text="Is Beautiful" />
 
 
         <!-- TODO add separator -->
 
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <RadioButton
-            android:id="@+id/yes_radio_button"
-            android:layout_width="wrap_content"
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="YES" />
-        <RadioButton
-            android:id="@+id/no_radio_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="NO" />
-    </RadioGroup>
+            android:orientation="horizontal">
 
+            <RadioButton
+                android:id="@+id/yes_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="YES" />
 
-
-
-
+            <RadioButton
+                android:id="@+id/no_radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NO" />
+        </RadioGroup>
 
     </LinearLayout>
 
@@ -89,12 +98,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
+        <!-- TODO Center buttons and pin to end of screen -->
+
         <Button
+            android:id="@+id/save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save" />
 
         <Button
+            android:id="@+id/cancel_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cancel" />
