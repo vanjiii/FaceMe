@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,7 @@ import com.vanjiii.faceme.managers.CameraManager;
 
 /**
  * Main fragment which hold basic navigation links.
- * <p/>
+ * <p>
  * Created by vanjiii on 07.05.16.
  */
 public class MainNavigationFragment extends Fragment {
@@ -63,7 +62,7 @@ public class MainNavigationFragment extends Fragment {
                 //TODO: Why data is null??
                 //TODO: fix msg
                 //TODO Add logging.
-               callback.callSavePhotoFragment(uri);
+                callback.callSavePhotoFragment(uri);
             } else if (resultCode == FragmentActivity.RESULT_CANCELED) {
                 // User cancelled the image capture
                 //TODO: add msg and flow
