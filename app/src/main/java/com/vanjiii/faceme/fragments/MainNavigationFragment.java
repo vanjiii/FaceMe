@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,9 +63,7 @@ public class MainNavigationFragment extends Fragment {
                 //TODO: Why data is null??
                 //TODO: fix msg
                 //TODO Add logging.
-
-                //TODO: Add fragment to show current current picture.
-
+               callback.callSavePhotoFragment(uri);
             } else if (resultCode == FragmentActivity.RESULT_CANCELED) {
                 // User cancelled the image capture
                 //TODO: add msg and flow

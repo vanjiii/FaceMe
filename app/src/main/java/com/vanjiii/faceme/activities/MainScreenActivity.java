@@ -1,12 +1,14 @@
 package com.vanjiii.faceme.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.vanjiii.faceme.R;
 import com.vanjiii.faceme.fragments.MainNavigationFragment;
+import com.vanjiii.faceme.fragments.SavePhotoFragment;
 import com.vanjiii.faceme.interfaces.OnFragmentItemSelectedListener;
 
 public class MainScreenActivity extends AppCompatActivity implements OnFragmentItemSelectedListener {
@@ -40,6 +42,15 @@ public class MainScreenActivity extends AppCompatActivity implements OnFragmentI
     public void callDatabaseViewerActivity() {
         Intent i = new Intent(this, AndroidDatabaseManager.class);
         this.startActivity(i);
+    }
+
+    @Override
+    public void callSavePhotoFragment(Uri uri) {
+        SavePhotoFragment fragment = new SavePhotoFragment();
+        fragment.setPictureUri(uri);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_screen_placeholder, fragment);
+        transaction.commit();
     }
 
 //    @Override
