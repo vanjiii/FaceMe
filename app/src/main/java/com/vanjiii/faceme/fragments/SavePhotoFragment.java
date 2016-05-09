@@ -19,6 +19,7 @@ import com.vanjiii.faceme.R;
  * Created by vanjiii on 08.05.16.
  */
 public class SavePhotoFragment extends Fragment {
+    //TODO: Add logic to user be able to choose the algorithm with which the image will be processed. maybe on click on manipulated image...?
 
     private Uri pictureUri;
     //TODO: Make upper hint disappear after image is clicked.
