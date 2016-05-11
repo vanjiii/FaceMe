@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.vanjiii.faceme.R;
 import com.vanjiii.faceme.fragments.MainNavigationFragment;
+import com.vanjiii.faceme.fragments.PreviewAllPhotosFragment;
 import com.vanjiii.faceme.fragments.SavePhotoFragment;
 import com.vanjiii.faceme.interfaces.OnFragmentItemSelectedListener;
 
@@ -50,6 +51,13 @@ public class MainScreenActivity extends AppCompatActivity implements OnFragmentI
         fragment.setPictureUri(uri);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_screen_placeholder, fragment);
+        transaction.commit();
+    }
+
+    @Override
+    public void callPreviewAllPhotosFragment() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_screen_placeholder, new PreviewAllPhotosFragment());
         transaction.commit();
     }
 

@@ -29,6 +29,28 @@ public class MainNavigationFragment extends Fragment {
     private Uri uri;
     private OnFragmentItemSelectedListener callback;
 
+    private View.OnClickListener takePhotoListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            //TODO: Why can't I pass 'uri' as argument to "CameraManager.startCamera()' ??
+            uri = CameraManager.startCamera(getActivity());
+        }
+    };
+
+    private View.OnClickListener previewPhotosListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            callback.callPreviewAllPhotosFragment();
+        }
+    };
+
+    private View.OnClickListener dbViewerListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            callback.callDatabaseViewerActivity();
+        }
+    };
+
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
     @Override
@@ -95,27 +117,4 @@ public class MainNavigationFragment extends Fragment {
         previewAllPhotosButton.setOnClickListener(previewPhotosListener);
         dbViewerButton.setOnClickListener(dbViewerListener);
     }
-
-    private View.OnClickListener takePhotoListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            //TODO: Why can't I pass 'uri' as argument to "CameraManager.startCamera()' ??
-            uri = CameraManager.startCamera(getActivity());
-        }
-    };
-
-    private View.OnClickListener previewPhotosListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(getActivity(), "Boo hoo...", Toast.LENGTH_LONG).show();
-        }
-    };
-
-    private View.OnClickListener dbViewerListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            callback.callDatabaseViewerActivity();
-        }
-    };
-
 }

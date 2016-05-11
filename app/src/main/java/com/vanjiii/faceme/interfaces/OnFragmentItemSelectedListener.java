@@ -21,4 +21,6 @@ public interface OnFragmentItemSelectedListener {
      */
     void callSavePhotoFragment(Uri uri);
 
+    void callPreviewAllPhotosFragment();
+
 }
