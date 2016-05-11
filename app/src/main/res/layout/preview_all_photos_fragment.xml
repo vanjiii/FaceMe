@@ -5,12 +5,14 @@
     android:orientation="vertical">
 
     <Button
+        android:id="@+id/send_all_pictures_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Send all"/>
 
     <ListView
+        android:id="@+id/picture_row_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
