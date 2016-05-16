@@ -27,18 +27,31 @@ public class PreviewAllPhotosArrayAdapter extends ArrayAdapter<Person> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         Person person = getItem(position);
+        ViewHolder viewHolder; // view lookup cache stored in tag
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.person_picture_row, parent, false);
+            viewHolder = new ViewHolder();
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            convertView = inflater.inflate(R.layout.person_picture_row, parent, false);
+            viewHolder.name = (TextView) convertView.findViewById(R.id.person_name_row_element_text_view);
+            viewHolder.age = (TextView) convertView.findViewById(R.id.person_age_row_element_text_view);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
         // Lookup view for data population
-        TextView name = (TextView) convertView.findViewById(R.id.person_name_row_element_text_view);
-        TextView age = (TextView) convertView.findViewById(R.id.person_age_row_element_text_view);
+//        TextView name = (TextView) convertView.findViewById(R.id.person_name_row_element_text_view);
+//        TextView age = (TextView) convertView.findViewById(R.id.person_age_row_element_text_view);
         // Populate the data into the template view using the data object
-        name.setText(person.getName());
-        age.setText(person.getAge());
+        viewHolder.name.setText(person.getName());
+        viewHolder.age.setText(String.valueOf(person.getAge()));
 
         // Return the completed view to render on screen
         return convertView;
+    }
+
+    public static class ViewHolder {
+        TextView name;
+        TextView age;
     }
 }
