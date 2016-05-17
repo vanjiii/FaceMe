@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.vanjiii.faceme.R;
 import com.vanjiii.faceme.fragments.MainNavigationFragment;
 import com.vanjiii.faceme.fragments.PreviewAllPhotosFragment;
+import com.vanjiii.faceme.fragments.PreviewManipulatedPhotoFragment;
 import com.vanjiii.faceme.fragments.SavePhotoFragment;
 import com.vanjiii.faceme.interfaces.OnFragmentItemSelectedListener;
 
@@ -29,13 +30,14 @@ public class MainScreenActivity extends AppCompatActivity implements OnFragmentI
 //        initLayoutElements();
 //        setOnClickListeners();
 
-        // Begin the transaction
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        // Replace the contents of the container with the new fragment
-        ft.replace(R.id.main_screen_placeholder, new MainNavigationFragment());
-        // or ft.add(R.id.your_placeholder, new FooFragment());
-        // Complete the changes added above
-        ft.commit();
+        callMainNavigationFragment();
+//        // Begin the transaction
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        // Replace the contents of the container with the new fragment
+//        ft.replace(R.id.main_screen_placeholder, new MainNavigationFragment());
+//        // or ft.add(R.id.your_placeholder, new FooFragment());
+//        // Complete the changes added above
+//        ft.commit();
 
     }
 
@@ -46,9 +48,24 @@ public class MainScreenActivity extends AppCompatActivity implements OnFragmentI
     }
 
     @Override
-    public void callSavePhotoFragment(Uri uri) {
+    public void callMainNavigationFragment() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.main_screen_placeholder, new MainNavigationFragment());
+        ft.commit();
+    }
+
+    @Override
+    public void callSavePhotoFragment() {
         SavePhotoFragment fragment = new SavePhotoFragment();
-        fragment.setPictureUri(uri);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_screen_placeholder, fragment);
+        transaction.commit();
+    }
+
+    @Override
+    public void callPreviewPhotoFragment(Uri uri) {
+        PreviewManipulatedPhotoFragment fragment = new PreviewManipulatedPhotoFragment();
+        fragment.setPhotoUri(uri);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_screen_placeholder, fragment);
         transaction.commit();
@@ -63,6 +80,7 @@ public class MainScreenActivity extends AppCompatActivity implements OnFragmentI
 
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
 //        if (requestCode == CameraManager.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 //            if (resultCode == RESULT_OK) {
 //                // Image captured and saved to fileUri specified in the Intent

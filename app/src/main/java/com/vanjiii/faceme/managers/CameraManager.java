@@ -1,10 +1,10 @@
 package com.vanjiii.faceme.managers;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import java.io.File;
@@ -22,7 +22,7 @@ public class CameraManager {
     public static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
 
     //TODO: Add description
-    public static Uri startCamera(Activity activity) {
+    public static Uri startCamera(Fragment fragment) {
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
@@ -30,7 +30,7 @@ public class CameraManager {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
         // start the image capture Intent
-        activity.startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+        fragment.startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 
         return fileUri;
     }

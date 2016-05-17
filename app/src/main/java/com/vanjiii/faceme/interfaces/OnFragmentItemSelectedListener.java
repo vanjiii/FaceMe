@@ -14,12 +14,14 @@ public interface OnFragmentItemSelectedListener {
      */
     void callDatabaseViewerActivity();
 
+    void callMainNavigationFragment();
+
     /**
      * Call the SavePhotoFragment. It gives the possibility to add info to taken picture and manipulated the existing one.
-     *
-     * @param uri Uri of the taken picture.
      */
-    void callSavePhotoFragment(Uri uri);
+    void callSavePhotoFragment();
+
+    void callPreviewPhotoFragment(Uri uri);
 
     void callPreviewAllPhotosFragment();
 

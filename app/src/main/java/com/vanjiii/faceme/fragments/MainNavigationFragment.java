@@ -6,11 +6,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.vanjiii.faceme.R;
 import com.vanjiii.faceme.interfaces.OnFragmentItemSelectedListener;
@@ -18,7 +18,7 @@ import com.vanjiii.faceme.managers.CameraManager;
 
 /**
  * Main fragment which hold basic navigation links.
- * <p>
+ * <p/>
  * Created by vanjiii on 07.05.16.
  */
 public class MainNavigationFragment extends Fragment {
@@ -33,7 +33,7 @@ public class MainNavigationFragment extends Fragment {
         @Override
         public void onClick(View v) {
             //TODO: Why can't I pass 'uri' as argument to "CameraManager.startCamera()' ??
-            uri = CameraManager.startCamera(getActivity());
+            uri = CameraManager.startCamera(MainNavigationFragment.this);
         }
     };
 
@@ -58,7 +58,6 @@ public class MainNavigationFragment extends Fragment {
         // Defines the xml file for the fragment
         View rootView = inflater.inflate(R.layout.main_navigation_fragment, parent, false);
 
-
         initLayoutElements(rootView);
         setOnClickListeners();
 
@@ -75,6 +74,9 @@ public class MainNavigationFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.d("face_me", "onActivityResult");
+
         if (requestCode == CameraManager.CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == FragmentActivity.RESULT_OK) {
                 // Image captured and saved to fileUri specified in the Intent
@@ -84,7 +86,7 @@ public class MainNavigationFragment extends Fragment {
                 //TODO: Why data is null??
                 //TODO: fix msg
                 //TODO Add logging.
-                callback.callSavePhotoFragment(uri);
+                callback.callPreviewPhotoFragment(uri);
             } else if (resultCode == FragmentActivity.RESULT_CANCELED) {
                 // User cancelled the image capture
                 //TODO: add msg and flow
