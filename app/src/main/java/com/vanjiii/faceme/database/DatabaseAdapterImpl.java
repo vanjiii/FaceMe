@@ -60,7 +60,7 @@ public class DatabaseAdapterImpl implements DatabaseAdapter{
         ContentValues values = new ContentValues();
         //TODO:  remove input id as input var
 //        values.put(DatabaseHelper.COLUMN_ID, person.getId());
-        values.put(DatabaseHelper.COLUMN_PICTURE_URI, person.getPictureUri());
+        values.put(DatabaseHelper.COLUMN_PICTURE_URI, person.getPhotoUri());
         values.put(DatabaseHelper.COLUMN_PERSON_NAME, person.getName());
         values.put(DatabaseHelper.COLUMN_PERSON_AGE, person.getAge());
         values.put(DatabaseHelper.COLUMN_PERSON_SEX, person.getSex().getValue());
@@ -120,7 +120,7 @@ public class DatabaseAdapterImpl implements DatabaseAdapter{
                 do {
                     Person person = new Person();
                     person.setId(cursor.getInt(idIndex));
-                    person.setPictureUri(cursor.getString(pictureUriIndex));
+                    person.setPhotoUri(cursor.getString(pictureUriIndex));
                     person.setName(cursor.getString(nameIndex));
                     person.setAge(cursor.getShort(ageIndex));
                     person.setSex(GenderEnum.getGenderForValue(cursor.getString(sexIndex)));

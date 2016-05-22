@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.vanjiii.faceme.R;
@@ -35,6 +36,7 @@ public class PreviewAllPhotosArrayAdapter extends ArrayAdapter<Person> {
             convertView = inflater.inflate(R.layout.person_picture_row, parent, false);
             viewHolder.name = (TextView) convertView.findViewById(R.id.person_name_row_element_text_view);
             viewHolder.age = (TextView) convertView.findViewById(R.id.person_age_row_element_text_view);
+            viewHolder.isSentToServer = (CheckBox) convertView.findViewById(R.id.is_sent_to_server_checkBox);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -45,6 +47,7 @@ public class PreviewAllPhotosArrayAdapter extends ArrayAdapter<Person> {
         // Populate the data into the template view using the data object
         viewHolder.name.setText(person.getName());
         viewHolder.age.setText(String.valueOf(person.getAge()));
+        viewHolder.isSentToServer.setChecked(person.isSentToServer());
 
         // Return the completed view to render on screen
         return convertView;
@@ -53,5 +56,6 @@ public class PreviewAllPhotosArrayAdapter extends ArrayAdapter<Person> {
     public static class ViewHolder {
         TextView name;
         TextView age;
+        CheckBox isSentToServer;
     }
 }

@@ -27,6 +27,12 @@
             android:layout_height="wrap_content"
             android:text="19 years old"/>
 
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sent to server"
+            android:id="@+id/is_sent_to_server_checkBox"/>
+
     </LinearLayout>
 
     <ImageView

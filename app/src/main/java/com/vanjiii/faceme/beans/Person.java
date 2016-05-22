@@ -16,10 +16,11 @@ public class Person {
     //TODO Remove photo with picture.
 
     private int id;
-    private String pictureUri;
+    private String photoUri;
     private String name;
     private int age;
     private GenderEnum sex;
+    private boolean isSentToServer;
 
     public Person() {
 
@@ -34,12 +35,12 @@ public class Person {
         this.id = id;
     }
 
-    public String getPictureUri() {
-        return pictureUri;
+    public String getPhotoUri() {
+        return photoUri;
     }
 
-    public void setPictureUri(String pictureUri) {
-        this.pictureUri = pictureUri;
+    public void setPhotoUri(String photoUri) {
+        this.photoUri = photoUri;
     }
 
     public String getName() {
@@ -74,23 +75,30 @@ public class Person {
         Person p = new Person();
         p.setAge(19);
         p.setName("Kiro");
-        p.setPictureUri("sdcard/folder/1.png");
+        p.setPhotoUri("sdcard/folder/1.png");
         p.setSex(GenderEnum.MALE);
         persons.add(p);
 
         p.setAge(21);
         p.setName("Ivo");
-        p.setPictureUri("sdcard/folder/2.png");
+        p.setPhotoUri("sdcard/folder/2.png");
         p.setSex(GenderEnum.MALE);
         persons.add(p);
 
         p.setAge(37);
         p.setName("Tsveti");
-        p.setPictureUri("sdcard/folder/3.png");
+        p.setPhotoUri("sdcard/folder/3.png");
         p.setSex(GenderEnum.FEMALE);
         persons.add(p);
 
         return persons;
     }
 
+    public boolean isSentToServer() {
+        return isSentToServer;
+    }
+
+    public void setIsSentToServer(boolean isSentToServer) {
+        this.isSentToServer = isSentToServer;
+    }
 }
