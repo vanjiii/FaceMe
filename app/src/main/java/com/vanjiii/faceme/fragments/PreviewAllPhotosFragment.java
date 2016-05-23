@@ -40,7 +40,7 @@ public class PreviewAllPhotosFragment extends Fragment {
     private AdapterView.OnItemClickListener photoClickedListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            callback.callSavePhotoFragment();
+            callback.callSavePhotoFragment(true);
         }
     };
 

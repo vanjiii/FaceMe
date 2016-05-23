@@ -55,8 +55,9 @@ public class MainScreenActivity extends AppCompatActivity implements OnFragmentI
     }
 
     @Override
-    public void callSavePhotoFragment() {
+    public void callSavePhotoFragment(boolean isComingFromAdapter) {
         SavePhotoFragment fragment = new SavePhotoFragment();
+        fragment.setIsComingFromAllPhotos(isComingFromAdapter);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_screen_placeholder, fragment);
         transaction.commit();

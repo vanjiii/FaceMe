@@ -19,7 +19,7 @@ public interface OnFragmentItemSelectedListener {
     /**
      * Call the SavePhotoFragment. It gives the possibility to add info to taken picture and manipulated the existing one.
      */
-    void callSavePhotoFragment();
+    void callSavePhotoFragment(boolean isComingFromAdapter);
 
     void callPreviewPhotoFragment(Uri uri);
 

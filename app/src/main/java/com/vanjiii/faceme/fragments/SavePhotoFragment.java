@@ -35,6 +35,7 @@ public class SavePhotoFragment extends Fragment {
 
     //    private boolean isComingFrom
     private OnFragmentItemSelectedListener callback;
+    private boolean isComingFromAllPhotos = false;
 
     View.OnClickListener savePersonClickListener = new View.OnClickListener() {
         @Override
@@ -90,12 +91,23 @@ public class SavePhotoFragment extends Fragment {
         initialImageView = (ImageView) rootView.findViewById(R.id.initial_image_view);
         personNameEditText = (EditText) rootView.findViewById(R.id.person_name_edit_text);
         personAgeEditText = (EditText) rootView.findViewById(R.id.person_age_edit_text);
-        saveButton = (Button) rootView.findViewById(R.id.save_button);
         cancelButton = (Button) rootView.findViewById(R.id.cancel_button);
+        saveButton = (Button) rootView.findViewById(R.id.save_button);
+        if (isComingFromAllPhotos) {
+            saveButton.setText("Send");
+        }
     }
 
     private void setOnClickListeners() {
         saveButton.setOnClickListener(savePersonClickListener);
         cancelButton.setOnClickListener(resetPersonSavingListener);
+    }
+
+    public boolean isComingFromAllPhotos() {
+        return isComingFromAllPhotos;
+    }
+
+    public void setIsComingFromAllPhotos(boolean isComingFromAllPhotos) {
+        this.isComingFromAllPhotos = isComingFromAllPhotos;
     }
 }
