@@ -1,5 +1,6 @@
 package com.vanjiii.faceme.beans;
 
+import com.vanjiii.faceme.constants.DatabaseConstants;
 import com.vanjiii.faceme.constants.GenderEnum;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class Person {
     private String name;
     private int age;
     private GenderEnum sex;
-    private boolean isSentToServer;
+    private DatabaseConstants isSentToServer;
 
     public Person() {
 
@@ -94,11 +95,11 @@ public class Person {
         return persons;
     }
 
-    public boolean isSentToServer() {
+    public DatabaseConstants isSentToServer() {
         return isSentToServer;
     }
 
-    public void setIsSentToServer(boolean isSentToServer) {
+    public void setIsSentToServer(DatabaseConstants isSentToServer) {
         this.isSentToServer = isSentToServer;
     }
 }

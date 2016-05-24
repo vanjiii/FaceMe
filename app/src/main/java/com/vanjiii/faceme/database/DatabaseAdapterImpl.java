@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.vanjiii.faceme.beans.Person;
+import com.vanjiii.faceme.constants.DatabaseConstants;
 import com.vanjiii.faceme.constants.GenderEnum;
 
 import java.util.ArrayList;
@@ -64,6 +65,7 @@ public class DatabaseAdapterImpl implements DatabaseAdapter{
         values.put(DatabaseHelper.COLUMN_PERSON_NAME, person.getName());
         values.put(DatabaseHelper.COLUMN_PERSON_AGE, person.getAge());
         values.put(DatabaseHelper.COLUMN_PERSON_SEX, person.getSex().getValue());
+        values.put(DatabaseHelper.COLUMN_IS_SENT_TO_SERVER, person.isSentToServer().getValueInt());
 
         //TODO: add working criteria to look for existing record
         if (loadPerson(database, person.getId()) != null) {
@@ -105,7 +107,8 @@ public class DatabaseAdapterImpl implements DatabaseAdapter{
 
     private List<Person> loadPersonsHelper(SQLiteDatabase database, String where, String[] whereArgs) {
         String [] columns = { DatabaseHelper.COLUMN_ID, DatabaseHelper.COLUMN_PICTURE_URI,DatabaseHelper
-                .COLUMN_PERSON_NAME,  DatabaseHelper.COLUMN_PERSON_AGE, DatabaseHelper.COLUMN_PERSON_SEX };
+                .COLUMN_PERSON_NAME,  DatabaseHelper.COLUMN_PERSON_AGE, DatabaseHelper.COLUMN_PERSON_SEX,
+                DatabaseHelper.COLUMN_IS_SENT_TO_SERVER };
         Cursor cursor = database.query(DatabaseHelper.TABLE_PICTURES, columns, where,
                 whereArgs, null, null, null);
         List<Person> persons = new ArrayList<>();
@@ -116,6 +119,7 @@ public class DatabaseAdapterImpl implements DatabaseAdapter{
                 int nameIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_PERSON_NAME);
                 int ageIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_PERSON_AGE);
                 int sexIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_PERSON_SEX);
+                int isSentIndex = cursor.getColumnIndex(DatabaseHelper.COLUMN_IS_SENT_TO_SERVER);
 
                 do {
                     Person person = new Person();
@@ -124,6 +128,7 @@ public class DatabaseAdapterImpl implements DatabaseAdapter{
                     person.setName(cursor.getString(nameIndex));
                     person.setAge(cursor.getShort(ageIndex));
                     person.setSex(GenderEnum.getGenderForValue(cursor.getString(sexIndex)));
+                    person.setIsSentToServer(DatabaseConstants.getStateForValue(cursor.getInt(isSentIndex)));
 
                     persons.add(person);
                 } while (cursor.moveToNext());

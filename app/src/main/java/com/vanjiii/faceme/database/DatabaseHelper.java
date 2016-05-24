@@ -27,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static String COLUMN_PERSON_NAME = "person_name";
     public static String COLUMN_PERSON_AGE = "person_age";
     public static String COLUMN_PERSON_SEX = "person_sex";
+    public static String COLUMN_IS_SENT_TO_SERVER = "is_sent_to_server";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -50,7 +51,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_PICTURE_URI + " TEXT NOT NULL, " +
                 COLUMN_PERSON_NAME + " TEXT, " + // Define a foreign key
                 COLUMN_PERSON_AGE + " INT, " +
-                COLUMN_PERSON_SEX + " TEXT" +
+                COLUMN_PERSON_SEX + " TEXT, " +
+                COLUMN_IS_SENT_TO_SERVER + " INTEGER" +
                 ")";
         db.execSQL(createTableStatement);
     }

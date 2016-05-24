@@ -23,6 +23,7 @@ import com.vanjiii.faceme.interfaces.OnFragmentItemSelectedListener;
 public class SavePhotoFragment extends Fragment {
     //TODO: Add logic to user be able to choose the algorithm with which the image will be processed. maybe on click on manipulated image...?
     //TODO: change button SAVE to SEND
+    //TODO: the DB table and the Person object has 'isSent'...?!
 
     private Uri pictureUri;
     //TODO: Make upper hint disappear after image is clicked.
