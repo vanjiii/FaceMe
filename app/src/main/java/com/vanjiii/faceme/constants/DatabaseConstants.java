@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Database constants holding the state which object is sent to the server.
+ *
  * Created by vanjiii on 5/23/16.
  */
 public enum DatabaseConstants {

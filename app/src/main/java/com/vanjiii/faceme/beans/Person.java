@@ -1,9 +1,11 @@
 package com.vanjiii.faceme.beans;
 
+import android.content.Context;
+
 import com.vanjiii.faceme.constants.DatabaseConstants;
 import com.vanjiii.faceme.constants.GenderEnum;
+import com.vanjiii.faceme.database.DatabaseAdapterImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -68,31 +70,9 @@ public class Person {
         this.sex = sex;
     }
 
-    public static List<Person> getAllPersons() {
-        //TODO Remove mock and use DB to get persons
-
-        //mock
-        List<Person> persons = new ArrayList<>();
-        Person p = new Person();
-        p.setAge(19);
-        p.setName("Kiro");
-        p.setPhotoUri("sdcard/folder/1.png");
-        p.setSex(GenderEnum.MALE);
-        persons.add(p);
-
-        p.setAge(21);
-        p.setName("Ivo");
-        p.setPhotoUri("sdcard/folder/2.png");
-        p.setSex(GenderEnum.MALE);
-        persons.add(p);
-
-        p.setAge(37);
-        p.setName("Tsveti");
-        p.setPhotoUri("sdcard/folder/3.png");
-        p.setSex(GenderEnum.FEMALE);
-        persons.add(p);
-
-        return persons;
+    public static List<Person> getAllPersons(Context context) {
+        DatabaseAdapterImpl database = new DatabaseAdapterImpl(context);
+        return database.loadAllPersons();
     }
 
     public DatabaseConstants isSentToServer() {

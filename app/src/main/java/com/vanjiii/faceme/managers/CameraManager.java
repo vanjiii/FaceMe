@@ -21,7 +21,12 @@ public class CameraManager {
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     public static final int CAPTURE_VIDEO_ACTIVITY_REQUEST_CODE = 200;
 
-    //TODO: Add description
+    /**
+     * Start the camera stock application.
+     *
+     * @param fragment The initial fragment.
+     * @return The URI of the taken photo
+     */
     public static Uri startCamera(Fragment fragment) {
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

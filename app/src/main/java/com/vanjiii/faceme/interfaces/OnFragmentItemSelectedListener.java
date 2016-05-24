@@ -14,6 +14,9 @@ public interface OnFragmentItemSelectedListener {
      */
     void callDatabaseViewerActivity();
 
+    /**
+     * Call the main navigation fragment.
+     */
     void callMainNavigationFragment();
 
     /**
@@ -21,8 +24,15 @@ public interface OnFragmentItemSelectedListener {
      */
     void callSavePhotoFragment(boolean isComingFromAdapter);
 
+    /**
+     * Call the fragment so that user can manipulate the taken photo.
+     * @param uri The URI of the photo.
+     */
     void callPreviewPhotoFragment(Uri uri);
 
+    /**
+     * Call the fragment that shows all the taken photos as array-adapter
+     */
     void callPreviewAllPhotosFragment();
 
 }
