@@ -47,7 +47,7 @@ public class PreviewAllPhotosArrayAdapter extends ArrayAdapter<Person> {
         // Populate the data into the template view using the data object
         viewHolder.name.setText(person.getName());
         viewHolder.age.setText(String.valueOf(person.getAge()));
-        viewHolder.isSentToServer.setChecked(person.isSentToServer());
+        viewHolder.isSentToServer.setChecked(person.isSentToServer().getValueBool());
 
         // Return the completed view to render on screen
         return convertView;

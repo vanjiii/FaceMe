@@ -12,9 +12,13 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.vanjiii.faceme.R;
+import com.vanjiii.faceme.faces.FaceDetectorAdapter;
+import com.vanjiii.faceme.faces.FaceDetectorAdapterImpl;
 import com.vanjiii.faceme.interfaces.OnFragmentItemSelectedListener;
 
 /**
+ * Fragment which shows the taken photo and the manipulated one.
+ * <p>
  * Created by vanjiii on 16.05.16.
  */
 public class PreviewManipulatedPhotoFragment extends Fragment {
@@ -30,8 +34,11 @@ public class PreviewManipulatedPhotoFragment extends Fragment {
     private View.OnClickListener confirmButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(getActivity(), "confirm", Toast.LENGTH_LONG).show();
-            callback.callSavePhotoFragment();
+            FaceDetectorAdapter faceDetector = new FaceDetectorAdapterImpl();
+            Uri manipulatedImageUri = faceDetector.findFace(uri, getContext());
+            if (manipulatedImageUri != null) {
+                manipulatedImageView.setImageURI(manipulatedImageUri);
+            }
         }
     };
 
@@ -50,6 +57,7 @@ public class PreviewManipulatedPhotoFragment extends Fragment {
 
         initLayoutElements(rootView);
         setOnClickListeners();
+        originalPhotoImageView.setImageURI(uri);
 
         return rootView;
     }

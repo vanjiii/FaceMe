@@ -78,7 +78,7 @@ public class PreviewAllPhotosFragment extends Fragment {
 
     private void populateRow() {
         // Construct the data source
-        List<Person> arrayOfUsers = Person.getAllPersons();
+        List<Person> arrayOfUsers = Person.getAllPersons(getContext());
         // Create the adapter to convert the array to views
         PreviewAllPhotosArrayAdapter adapter = new PreviewAllPhotosArrayAdapter(getContext(), arrayOfUsers);
         // Attach the adapter to a ListView
