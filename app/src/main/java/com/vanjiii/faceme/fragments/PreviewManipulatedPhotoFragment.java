@@ -1,9 +1,12 @@
 package com.vanjiii.faceme.fragments;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +17,11 @@ import android.widget.Toast;
 import com.vanjiii.faceme.R;
 import com.vanjiii.faceme.faces.FaceDetectorAdapter;
 import com.vanjiii.faceme.faces.FaceDetectorAdapterImpl;
+import com.vanjiii.faceme.faces.ImageManipulator;
 import com.vanjiii.faceme.interfaces.OnFragmentItemSelectedListener;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Fragment which shows the taken photo and the manipulated one.
@@ -35,10 +42,30 @@ public class PreviewManipulatedPhotoFragment extends Fragment {
         @Override
         public void onClick(View v) {
             FaceDetectorAdapter faceDetector = new FaceDetectorAdapterImpl();
-            Uri manipulatedImageUri = faceDetector.findFace(uri, getContext());
+            Bitmap manipulatedImageUri = faceDetector.findFace(uri, getContext());
+
             if (manipulatedImageUri != null) {
-                manipulatedImageView.setImageURI(manipulatedImageUri);
+                manipulatedImageView.setImageBitmap(manipulatedImageUri);
             }
+            Toast.makeText(getActivity(), "face not found", Toast.LENGTH_SHORT).show();
+
+//            Bitmap grayscale = null;
+//            try {
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
+//                Log.d("FaceDetector", "colored width: " + bitmap.getWidth());
+//                Log.d("FaceDetector", "colored width: " + bitmap.getHeight());
+//                grayscale = ImageManipulator.convertToGrayscale(bitmap);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            Bitmap r = FaceDetectorAdapterImpl.compressPhoto(grayscale);
+//            Log.d("FaceDetector", "compressPhoto width: " + r.getWidth());
+//            Log.d("FaceDetector", "compressPhoto width: " + r.getHeight());
+//            manipulatedImageView.setImageBitmap(r);
+//
+
+
         }
     };
 

@@ -16,8 +16,8 @@ public class ImageManipulator {
         int height = bitmapOriginal.getHeight();
         int width = bitmapOriginal.getWidth();
 
-//        Bitmap grayscaleBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-        Bitmap grayscaleBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Bitmap grayscaleBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+//        Bitmap grayscaleBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(grayscaleBitmap);
         Paint paint = new Paint();
         ColorMatrix matrix = new ColorMatrix();

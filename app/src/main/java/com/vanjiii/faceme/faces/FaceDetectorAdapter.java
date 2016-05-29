@@ -1,6 +1,7 @@
 package com.vanjiii.faceme.faces;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 /**
@@ -8,6 +9,6 @@ import android.net.Uri;
  */
 public interface FaceDetectorAdapter {
 
-    Uri findFace(Uri uri, Context context);
+    Bitmap findFace(Uri uri, Context context);
 
 }
