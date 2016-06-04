@@ -1,18 +1,23 @@
 package com.vanjiii.faceme.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.vanjiii.faceme.R;
+import com.vanjiii.faceme.beans.Person;
+import com.vanjiii.faceme.constants.DatabaseConstants;
+import com.vanjiii.faceme.constants.GenderEnum;
+import com.vanjiii.faceme.database.DatabaseAdapterImpl;
 import com.vanjiii.faceme.interfaces.OnFragmentItemSelectedListener;
 
 /**
@@ -23,26 +28,28 @@ import com.vanjiii.faceme.interfaces.OnFragmentItemSelectedListener;
 public class SavePhotoFragment extends Fragment {
     //TODO: Add logic to user be able to choose the algorithm with which the image will be processed. maybe on click on manipulated image...?
     //TODO: change button SAVE to SEND
-    //TODO: the DB table and the Person object has 'isSent'...?!
 
-    private Uri pictureUri;
-    //TODO: Make upper hint disappear after image is clicked.
     private ImageView initialImageView;
     private EditText personNameEditText;
     private EditText personAgeEditText;
-    //TODO: Implement spinner.
-    private Button saveButton;
+    private Spinner sexSpinner;
+    private Button confirmButton;
     private Button cancelButton;
-
-    //    private boolean isComingFrom
     private OnFragmentItemSelectedListener callback;
-    private boolean isComingFromAllPhotos = false;
 
-    View.OnClickListener savePersonClickListener = new View.OnClickListener() {
+    private boolean isComingFromAllPhotos = false;
+    private Person personBean;
+
+    View.OnClickListener confirmButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //TODO: create person bean and save it to DB.
-            Toast.makeText(getActivity(), "save it", Toast.LENGTH_SHORT).show();
+            if (isComingFromAllPhotos) {
+//                if (!personBean.isSentToServer().getValueBool()) {
+                    sendPersonToServer();
+//                }
+            } else {
+                savePersonToDB();
+            }
             callback.callMainNavigationFragment();
         }
     };
@@ -64,6 +71,7 @@ public class SavePhotoFragment extends Fragment {
 
         initLayoutElements(rootView);
         setOnClickListeners();
+        setElementsProperties();
 
         return rootView;
     }
@@ -79,36 +87,78 @@ public class SavePhotoFragment extends Fragment {
         }
     }
 
-
-    public Uri getPictureUri() {
-        return pictureUri;
+    public Person getPictureUri() {
+        return personBean;
     }
 
-    public void setPictureUri(Uri pictureUri) {
-        this.pictureUri = pictureUri;
+    public void setPictureUri(Person person) {
+        this.personBean = person;
+    }
+
+
+    public void setIsComingFromAllPhotos(boolean isComingFromAllPhotos) {
+        this.isComingFromAllPhotos = isComingFromAllPhotos;
     }
 
     private void initLayoutElements(View rootView) {
         initialImageView = (ImageView) rootView.findViewById(R.id.initial_image_view);
         personNameEditText = (EditText) rootView.findViewById(R.id.person_name_edit_text);
         personAgeEditText = (EditText) rootView.findViewById(R.id.person_age_edit_text);
+        sexSpinner = (Spinner) rootView.findViewById(R.id.sex_spinner);
         cancelButton = (Button) rootView.findViewById(R.id.cancel_button);
-        saveButton = (Button) rootView.findViewById(R.id.save_button);
-        if (isComingFromAllPhotos) {
-            saveButton.setText("Send");
-        }
+        confirmButton = (Button) rootView.findViewById(R.id.save_button);
     }
 
     private void setOnClickListeners() {
-        saveButton.setOnClickListener(savePersonClickListener);
+        confirmButton.setOnClickListener(confirmButtonClickListener);
         cancelButton.setOnClickListener(resetPersonSavingListener);
     }
 
-    public boolean isComingFromAllPhotos() {
-        return isComingFromAllPhotos;
+    private void setElementsProperties() {
+        if (isComingFromAllPhotos) {
+            confirmButton.setText("Send");
+            if (personBean.isSentToServer().getValueBool()) {
+                confirmButton.setEnabled(false);
+            } else {
+                confirmButton.setEnabled(true);
+            }
+            populatePersonAttributesToFragment();
+        } else {
+            confirmButton.setText("Save");
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, GenderEnum.getAllGenders());
+        sexSpinner.setAdapter(adapter);
     }
 
-    public void setIsComingFromAllPhotos(boolean isComingFromAllPhotos) {
-        this.isComingFromAllPhotos = isComingFromAllPhotos;
+    private void populatePersonAttributesToFragment() {
+        personAgeEditText.setText(String.valueOf(personBean.getAge()));
+        personNameEditText.setText(personBean.getName());
+        sexSpinner.setSelection(GenderEnum.getIndex(personBean.getSex()));
+        //TODO: set initial image
+        //TODO: set manipulated image
+    }
+
+
+    private void sendPersonToServer() {
+        Toast.makeText(getContext(), "Send successful", Toast.LENGTH_SHORT).show();
+        personBean.setIsSentToServer(DatabaseConstants.SENT);
+        DatabaseAdapterImpl database = new DatabaseAdapterImpl(getContext());
+        database.storePerson(personBean);
+
+    }
+
+    private void savePersonToDB() {
+        //TODO: remove the mock
+        Toast.makeText(getActivity(), "save it", Toast.LENGTH_SHORT).show();
+        Person person = new Person();
+        person.setName(personNameEditText.getText().toString());
+        person.setAge(Integer.parseInt(personAgeEditText.getText().toString()));
+        person.setIsSentToServer(DatabaseConstants.NOT_SENT);
+        person.setPhotoUri("path-to-photo");
+//            Log.i("faceme", pictureUri + "");
+        person.setSex(GenderEnum.getGenderForValue(sexSpinner.getSelectedItem().toString()));
+
+
     }
 }

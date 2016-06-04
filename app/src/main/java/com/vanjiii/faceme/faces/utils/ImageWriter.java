@@ -1,16 +1,22 @@
 package com.vanjiii.faceme.faces.utils;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 public class ImageWriter {
     private static final String OUT_IMAGE_FORMAT = "jpg";
@@ -79,8 +85,36 @@ public class ImageWriter {
 //        }
 //    }
 
-    /** Create a File for saving an image or video */
-    private static File getOutputMediaFile(String name){
+    public static void writeToFile(int[][] x, Context context) throws IOException {
+        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File outDir = new File(path.getAbsolutePath() + File.separator + "kor");
+        if (!outDir.isDirectory()) {
+            outDir.mkdir();
+        }
+        File file = new File(outDir, "grayscale.txt");
+        Log.e("test", file + "");
+
+        Writer writer = new BufferedWriter(new FileWriter(file));
+        int h = x.length;
+        int w = x[0].length;
+
+        writer.append("h: " + Integer.toString(h) + " w: " + Integer.toString(w) + "\n \n");
+
+        for (int i = 0; i < h; i++) {
+            for (int j = 0; j < w; j++) {
+                writer.write(Integer.toString(x[i][j]) + "    ");
+            }
+            writer.append('\n');
+        }
+        writer.close();
+
+        MediaScannerConnection.scanFile(context, new String[]{outDir.toString()}, null, null);
+    }
+
+    /**
+     * Create a File for saving an image or video
+     */
+    private static File getOutputMediaFile(String name) {
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
         File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
@@ -92,50 +126,60 @@ public class ImageWriter {
         // between applications and persist after your app has been uninstalled.
 
         // Create the storage directory if it does not exist
-        if (! mediaStorageDir.exists()){
-            if (! mediaStorageDir.mkdirs()){
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
                 return null;
             }
         }
         // Create a media file name
         String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
         File mediaFile;
-        String mImageName="MI_"+ timeStamp + name +".jpg";
+        String mImageName = "MI_" + timeStamp + name + ".png";
         mediaFile = new File(mediaStorageDir.getPath() + File.separator + mImageName);
         return mediaFile;
     }
 
-    public static Bitmap createImage(int [][] colors) {
+    public static void addGallery(String file, Context context) {
+        Intent mediaScanIntent = new Intent(
+                Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+//        String currentPath = Environment.getExternalStorageDirectory()
+//                + "/MyAPP/APP" + n + ".jpg";
+        File f = new File(file);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        context.sendBroadcast(mediaScanIntent);
+    }
+
+    public static Bitmap createImage(int[][] colors) {
         return ImageConstructor.createImage(colors);
 
 
     }
 
-    public static Bitmap createImage(ColorPixel [][] colors) {
+    public static Bitmap createImage(ColorPixel[][] colors) {
         return ImageConstructor.createImage(colors);
     }
 
-    public static void storeImage(Bitmap image){
-        storeImage("", image);
-    }
-
-    public static void storeImage(String name, Bitmap image) {
+    public static File storeImage(String name, Bitmap image) {
         File pictureFile = getOutputMediaFile(name);
         if (pictureFile == null) {
             Log.d("faceme",
                     "Error creating media file, check storage permissions: ");// e.getMessage());
-            return;
+            return null;
         }
         try {
             FileOutputStream fos = new FileOutputStream(pictureFile);
-            image.compress(Bitmap.CompressFormat.JPEG, 0, fos);
+            //TODO: play with the values
+            image.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.close();
         } catch (FileNotFoundException e) {
             Log.d("faceme", "File not found: " + e.getMessage());
+            return null;
         } catch (IOException e) {
             Log.d("faceme", "Error accessing file: " + e.getMessage());
+            return null;
         }
-
+        return pictureFile;
 
 
 //        String root = Environment.getExternalStorageDirectory().toString();

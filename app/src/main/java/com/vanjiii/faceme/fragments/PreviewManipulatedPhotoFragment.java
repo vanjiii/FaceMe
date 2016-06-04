@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.vanjiii.faceme.R;
+import com.vanjiii.faceme.beans.Person;
 import com.vanjiii.faceme.faces.FaceDetectorAdapter;
 import com.vanjiii.faceme.faces.FaceDetectorAdapterImpl;
 import com.vanjiii.faceme.faces.ImageManipulator;
@@ -42,30 +43,14 @@ public class PreviewManipulatedPhotoFragment extends Fragment {
         @Override
         public void onClick(View v) {
             FaceDetectorAdapter faceDetector = new FaceDetectorAdapterImpl();
-            Bitmap manipulatedImageUri = faceDetector.findFace(uri, getContext());
+            Bitmap manipulatedBitmapImage = faceDetector.findFace(uri, getContext());
 
-            if (manipulatedImageUri != null) {
-                manipulatedImageView.setImageBitmap(manipulatedImageUri);
+            if (manipulatedBitmapImage != null) {
+                manipulatedImageView.setImageBitmap(manipulatedBitmapImage);
+            } else {
+                Toast.makeText(getActivity(), "face not found", Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(getActivity(), "face not found", Toast.LENGTH_SHORT).show();
-
-//            Bitmap grayscale = null;
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), uri);
-//                Log.d("FaceDetector", "colored width: " + bitmap.getWidth());
-//                Log.d("FaceDetector", "colored width: " + bitmap.getHeight());
-//                grayscale = ImageManipulator.convertToGrayscale(bitmap);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            Bitmap r = FaceDetectorAdapterImpl.compressPhoto(grayscale);
-//            Log.d("FaceDetector", "compressPhoto width: " + r.getWidth());
-//            Log.d("FaceDetector", "compressPhoto width: " + r.getHeight());
-//            manipulatedImageView.setImageBitmap(r);
-//
-
-
+            callback.callSavePhotoFragment(false, new Person());
         }
     };
 

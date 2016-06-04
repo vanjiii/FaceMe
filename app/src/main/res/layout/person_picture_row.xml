@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants">
 
     <ImageView
         android:id="@+id/initial_image_row_element_image_view"
@@ -31,6 +32,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sent to server"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:id="@+id/is_sent_to_server_checkBox"/>
 
     </LinearLayout>

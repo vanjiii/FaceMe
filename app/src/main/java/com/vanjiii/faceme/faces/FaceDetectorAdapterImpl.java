@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -34,11 +35,8 @@ public class FaceDetectorAdapterImpl implements FaceDetectorAdapter {
             bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
             res = compressPhoto(bitmap);
 
-            ImageWriter.storeImage(res);
+//            ImageWriter.storeImage("init", res);
 
-//            Log.d("FaceDetector", "colored width: " + bitmap.getWidth());
-//            Log.d("FaceDetector", "colored width: " + bitmap.getHeight());
-//            grayscale = ImageManipulator.convertToGrayscale(bitmap);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,7 +49,6 @@ public class FaceDetectorAdapterImpl implements FaceDetectorAdapter {
 //
 
 
-
         //URI to File
 //        File imageFile = new File(uri.getPath());
         //File to ColorPixel[][]
@@ -59,6 +56,17 @@ public class FaceDetectorAdapterImpl implements FaceDetectorAdapter {
 
         //ColorPixel[][] to int[][]
         int[][] grayscale = GrayscaleConverter.getImageGrayscale(imagePixels);
+//        try {
+//            ImageWriter.writeToFile(grayscale, context);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+//        ImageWriter.addGallery(Environment.getExternalStorageDirectory()
+//                + "/Android/data/"
+//                + "faceme"
+//                + "/Files"
+//                + "/bla.png", context);
         //int[][] from faceDetector to CropRegion
         ImageCropper.CropRegion faceRegion = FaceDetector.findFace(grayscale, true, false);
         //cropRegion to image
@@ -67,38 +75,32 @@ public class FaceDetectorAdapterImpl implements FaceDetectorAdapter {
         Bitmap cropBTRes = ImageWriter.createImage(result);
 
 
-
         return cropBTRes;
     }
 
-    private int[][] extractImg(Bitmap photo) {
-        //define the array size
-        int width = photo.getWidth();
-        int height = photo.getHeight();
+    //TODO remove unused code
+//    private int[][] extractImg(Bitmap photo) {
+//        //define the array size
+//        int width = photo.getWidth();
+//        int height = photo.getHeight();
+//
+//
+//        int[][] rgb = new int[width][height];
+//        Log.d("FaceDetector", "after compress width: " + photo.getWidth());
+//        Log.d("FaceDetector", "after compress width: " + photo.getHeight());
+//
+//        for (int i = 0; i < photo.getWidth() - 1; i++) {
+//            for (int j = 0; j < photo.getHeight() - 1; j++) {
+//                //get the RGB value from each pixel and store it into the array as Color
+//                rgb[i][j] = photo.getPixel(i, j);
+//            }
+//        }
+//
+//
+//        return rgb;
+//    }
 
-
-        int[][] rgb = new int[width][height];
-        Log.d("FaceDetector", "after compress width: " + photo.getWidth());
-        Log.d("FaceDetector", "after compress width: " + photo.getHeight());
-
-        for (int i = 0; i < photo.getWidth() - 1; i++) {
-            for (int j = 0; j < photo.getHeight() - 1; j++) {
-                //get the RGB value from each pixel and store it into the array as Color
-                rgb[i][j] = photo.getPixel(i, j);
-            }
-        }
-
-
-        return rgb;
-    }
-
-    public  Bitmap compressPhoto(Bitmap photo) {
-
+    public Bitmap compressPhoto(Bitmap photo) {
         return Bitmap.createScaledBitmap(photo, 960, 1280, true);
-
-
-
     }
-
-
 }

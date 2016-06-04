@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.vanjiii.faceme.R;
+import com.vanjiii.faceme.beans.Person;
 import com.vanjiii.faceme.fragments.MainNavigationFragment;
 import com.vanjiii.faceme.fragments.PreviewAllPhotosFragment;
 import com.vanjiii.faceme.fragments.PreviewManipulatedPhotoFragment;
@@ -37,9 +38,10 @@ public class MainScreenActivity extends AppCompatActivity implements OnFragmentI
     }
 
     @Override
-    public void callSavePhotoFragment(boolean isComingFromAdapter) {
+    public void callSavePhotoFragment(boolean isComingFromAdapter, Person person) {
         SavePhotoFragment fragment = new SavePhotoFragment();
         fragment.setIsComingFromAllPhotos(isComingFromAdapter);
+        fragment.setPictureUri(person);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_screen_placeholder, fragment);
         transaction.commit();
