@@ -155,10 +155,11 @@ public class SavePhotoFragment extends Fragment {
         person.setName(personNameEditText.getText().toString());
         person.setAge(Integer.parseInt(personAgeEditText.getText().toString()));
         person.setIsSentToServer(DatabaseConstants.NOT_SENT);
-        person.setPhotoUri("path-to-photo");
+        person.setInitialPhotoUri("path-to-photo");
 //            Log.i("faceme", pictureUri + "");
         person.setSex(GenderEnum.getGenderForValue(sexSpinner.getSelectedItem().toString()));
-
+        DatabaseAdapterImpl database = new DatabaseAdapterImpl(getContext());
+        database.storePerson(person);
 
     }
 }

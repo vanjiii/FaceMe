@@ -11,6 +11,7 @@ import android.graphics.Paint;
  */
 public class ImageManipulator {
 
+    @Deprecated
     public static Bitmap convertToGrayscale(Bitmap bitmapOriginal)
     {
         int height = bitmapOriginal.getHeight();

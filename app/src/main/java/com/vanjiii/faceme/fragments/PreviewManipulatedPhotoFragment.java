@@ -2,11 +2,11 @@ package com.vanjiii.faceme.fragments;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +18,9 @@ import com.vanjiii.faceme.R;
 import com.vanjiii.faceme.beans.Person;
 import com.vanjiii.faceme.faces.FaceDetectorAdapter;
 import com.vanjiii.faceme.faces.FaceDetectorAdapterImpl;
-import com.vanjiii.faceme.faces.ImageManipulator;
 import com.vanjiii.faceme.interfaces.OnFragmentItemSelectedListener;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Fragment which shows the taken photo and the manipulated one.
@@ -35,6 +33,7 @@ public class PreviewManipulatedPhotoFragment extends Fragment {
     private ImageView manipulatedImageView;
     private Button confirmButton;
     private Button declineButton;
+    private Button manipulatePhotoButton;
 
     private Uri uri;
     private OnFragmentItemSelectedListener callback;
@@ -42,15 +41,9 @@ public class PreviewManipulatedPhotoFragment extends Fragment {
     private View.OnClickListener confirmButtonListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            FaceDetectorAdapter faceDetector = new FaceDetectorAdapterImpl();
-            Bitmap manipulatedBitmapImage = faceDetector.findFace(uri, getContext());
-
-            if (manipulatedBitmapImage != null) {
-                manipulatedImageView.setImageBitmap(manipulatedBitmapImage);
-            } else {
-                Toast.makeText(getActivity(), "face not found", Toast.LENGTH_SHORT).show();
-            }
-            callback.callSavePhotoFragment(false, new Person());
+            Person person = new Person();
+            person.setInitialPhotoUri(uri.toString());
+            callback.callSavePhotoFragment(false, person);
         }
     };
 
@@ -63,6 +56,20 @@ public class PreviewManipulatedPhotoFragment extends Fragment {
         }
     };
 
+    private View.OnClickListener manipulatePhotoListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FaceDetectorAdapter faceDetector = new FaceDetectorAdapterImpl();
+            Bitmap manipulatedBitmapImage = faceDetector.findFace(uri, getContext());
+
+            if (manipulatedBitmapImage != null) {
+                manipulatedImageView.setImageBitmap(manipulatedBitmapImage);
+            } else {
+                Toast.makeText(getActivity(), "face not found", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.review_manipulated_photo_fragment, parent, false);
@@ -70,6 +77,14 @@ public class PreviewManipulatedPhotoFragment extends Fragment {
         initLayoutElements(rootView);
         setOnClickListeners();
         originalPhotoImageView.setImageURI(uri);
+//
+//
+//        File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+//        File imageFile = new File(path.getAbsolutePath() + File.separator + "kor" + File.separator + "1.jpg");
+//        Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+//        originalPhotoImageView.setImageBitmap(bitmap);
+//
+//
 
         return rootView;
     }
@@ -94,10 +109,12 @@ public class PreviewManipulatedPhotoFragment extends Fragment {
         manipulatedImageView = (ImageView) view.findViewById(R.id.manipulated_photo_image_view);
         confirmButton = (Button) view.findViewById(R.id.accept_button);
         declineButton = (Button) view.findViewById(R.id.decline_button);
+        manipulatePhotoButton = (Button) view.findViewById(R.id.manipulate_photo_button);
     }
 
     private void setOnClickListeners() {
         confirmButton.setOnClickListener(confirmButtonListener);
         declineButton.setOnClickListener(declineButtonListener);
+        manipulatePhotoButton.setOnClickListener(manipulatePhotoListener);
     }
 }

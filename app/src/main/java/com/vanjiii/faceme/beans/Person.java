@@ -19,7 +19,8 @@ public class Person {
     //TODO Remove photo with picture.
 
     private int id;
-    private String photoUri;
+    private String initialPhotoUri;
+    private String manipulatedPhotoUri;
     private String name;
     private int age;
     private GenderEnum sex;
@@ -38,12 +39,12 @@ public class Person {
         this.id = id;
     }
 
-    public String getPhotoUri() {
-        return photoUri;
+    public String getInitialPhotoUri() {
+        return initialPhotoUri;
     }
 
-    public void setPhotoUri(String photoUri) {
-        this.photoUri = photoUri;
+    public void setInitialPhotoUri(String initialPhotoUri) {
+        this.initialPhotoUri = initialPhotoUri;
     }
 
     public String getName() {
@@ -81,5 +82,13 @@ public class Person {
 
     public void setIsSentToServer(DatabaseConstants isSentToServer) {
         this.isSentToServer = isSentToServer;
+    }
+
+    public String getManipulatedPhotoUri() {
+        return manipulatedPhotoUri;
+    }
+
+    public void setManipulatedPhotoUri(String manipulatedPhotoUri) {
+        this.manipulatedPhotoUri = manipulatedPhotoUri;
     }
 }

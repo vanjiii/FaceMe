@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.google.gson.JsonParser;
 import com.vanjiii.faceme.beans.Person;
 import com.vanjiii.faceme.constants.DatabaseConstants;
 import com.vanjiii.faceme.constants.GenderEnum;
@@ -56,12 +57,12 @@ public class DatabaseAdapterImpl implements DatabaseAdapter{
 
     private void storePerson(SQLiteDatabase database, Person person) {
         //TODO: fix logging
-//        Log.v(DatabaseHelper.LOG_TAG, "Storing face in the database: "
+        Log.v(DatabaseHelper.LOG_TAG, "Storing face in the database: " + person.getName());
 //                + new JsonParser(context).serializeFace(person));
         ContentValues values = new ContentValues();
         //TODO:  remove input id as input var
 //        values.put(DatabaseHelper.COLUMN_ID, person.getId());
-        values.put(DatabaseHelper.COLUMN_PICTURE_URI, person.getPhotoUri());
+        values.put(DatabaseHelper.COLUMN_PICTURE_URI, person.getInitialPhotoUri());
         values.put(DatabaseHelper.COLUMN_PERSON_NAME, person.getName());
         values.put(DatabaseHelper.COLUMN_PERSON_AGE, person.getAge());
         values.put(DatabaseHelper.COLUMN_PERSON_SEX, person.getSex().getValue());
@@ -124,7 +125,7 @@ public class DatabaseAdapterImpl implements DatabaseAdapter{
                 do {
                     Person person = new Person();
                     person.setId(cursor.getInt(idIndex));
-                    person.setPhotoUri(cursor.getString(pictureUriIndex));
+                    person.setInitialPhotoUri(cursor.getString(pictureUriIndex));
                     person.setName(cursor.getString(nameIndex));
                     person.setAge(cursor.getShort(ageIndex));
                     person.setSex(GenderEnum.getGenderForValue(cursor.getString(sexIndex)));

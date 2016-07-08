@@ -43,7 +43,7 @@ public class MainScreenActivity extends AppCompatActivity implements OnFragmentI
         fragment.setIsComingFromAllPhotos(isComingFromAdapter);
         fragment.setPictureUri(person);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_screen_placeholder, fragment);
+        transaction.replace(R.id.main_screen_placeholder, fragment).addToBackStack(null);
         transaction.commit();
     }
 
@@ -59,7 +59,7 @@ public class MainScreenActivity extends AppCompatActivity implements OnFragmentI
     @Override
     public void callPreviewAllPhotosFragment() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.main_screen_placeholder, new PreviewAllPhotosFragment());
+        transaction.replace(R.id.main_screen_placeholder, new PreviewAllPhotosFragment()).addToBackStack(null);
         transaction.commit();
     }
 }

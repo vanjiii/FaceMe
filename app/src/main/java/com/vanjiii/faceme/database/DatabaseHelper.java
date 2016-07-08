@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 /**
  * Class responsible to keep the DB up-to date.
- * <p/>
+ * <p>
  * Created by vanjiii on 4/9/16.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -49,7 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "(" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + // Define a primary key
                 COLUMN_PICTURE_URI + " TEXT NOT NULL, " +
-                COLUMN_PERSON_NAME + " TEXT, " + // Define a foreign key
+                COLUMN_PERSON_NAME + " TEXT, " +
                 COLUMN_PERSON_AGE + " INT, " +
                 COLUMN_PERSON_SEX + " TEXT, " +
                 COLUMN_IS_SENT_TO_SERVER + " INTEGER" +
